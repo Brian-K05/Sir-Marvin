@@ -23,6 +23,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY . /var/www/html
 
+# Copy and set up entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Set permissions
 RUN chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
@@ -33,6 +37,6 @@ RUN composer install --optimize-autoloader --no-dev --no-interaction
 # Expose port (Render will set PORT environment variable)
 EXPOSE 8080
 
-# Start Laravel development server (Render compatible)
-CMD php -d variables_order=EGPCS artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+# Use entrypoint script to run migrations and start server
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
