@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: sir-marvin-app
+    env: php
+    region: oregon
+    plan: free
+    buildCommand: composer install --optimize-autoloader --no-dev && php artisan key:generate --force
+    startCommand: php -d variables_order=EGPCS artisan serve --host=0.0.0.0 --port=$PORT
+    healthCheckPath: /
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_DRIVER
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+
+  - type: pgsql
+    name: sir-marvin-db
+    plan: free
+    databaseName: marvin_db
+    databaseUser: marvin_user
+
