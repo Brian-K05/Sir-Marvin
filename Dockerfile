@@ -1,5 +1,5 @@
-# Use PHP 8.1 for Laravel
-FROM php:8.1-cli
+# Use PHP 8.2 for Laravel
+FROM php:8.2-cli
 
 # Set working directory
 WORKDIR /var/www/html
