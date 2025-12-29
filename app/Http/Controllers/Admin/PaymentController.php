@@ -32,7 +32,7 @@ class PaymentController extends Controller
         $payment->update([
             'status' => 'approved',
             'verified_at' => now(),
-            'verified_by' => auth()->id(),
+            'verified_by' => auth('admin')->id(),
         ]);
 
         // Update submission payment status
@@ -107,7 +107,7 @@ class PaymentController extends Controller
             'status' => 'rejected',
             'admin_notes' => isset($validated['admin_notes']) ? sanitize_input($validated['admin_notes']) : null,
             'verified_at' => now(),
-            'verified_by' => auth()->id(),
+            'verified_by' => auth('admin')->id(),
         ]);
 
         // Update submission payment status
