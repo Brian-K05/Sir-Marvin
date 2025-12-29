@@ -20,6 +20,7 @@ echo "Clearing caches..."
 php artisan config:clear || true
 php artisan cache:clear || true
 php artisan view:clear || true
+php artisan route:clear || true
 
 # Start the Laravel server
 echo "Starting Laravel server on port ${PORT:-8080}..."
