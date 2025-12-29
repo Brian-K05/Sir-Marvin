@@ -8,6 +8,10 @@ sleep 2
 echo "Running database migrations..."
 php artisan migrate --force
 
+# Run seeders (creates admin account and services)
+echo "Seeding database..."
+php artisan db:seed --force
+
 # Create storage link if it doesn't exist
 php artisan storage:link || true
 
